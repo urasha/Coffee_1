@@ -6,27 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>652</width>
-    <height>357</height>
+    <width>765</width>
+    <height>439</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Экспрессо</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>9</x>
      <y>20</y>
-     <width>101</width>
-     <height>61</height>
+     <width>741</width>
+     <height>391</height>
     </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background: yellow</string>
-   </property>
-   <property name="text">
-    <string>Жёлтая кнопка</string>
    </property>
   </widget>
  </widget>

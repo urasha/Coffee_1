@@ -1,38 +1,30 @@
+import sqlite3
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
+
 from PyQt5 import uic
-from PyQt5.QtCore import QPointF
-from PyQt5.QtGui import QPainter, QColor
-import random
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 
 
-class MainForm(QMainWindow):
+class MyWidget(QWidget):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
-        self.is_draw = False
-        self.pushButton.clicked.connect(self.paint)
+        uic.loadUi("main.ui", self)
+        self.con = sqlite3.connect("coffee.db")
+        cur = self.con.cursor()
+        result = cur.execute("SELECT * FROM coffee").fetchall()
+        self.tableWidget.setRowCount(len(result))
+        self.tableWidget.setColumnCount(len(result[0]))
 
-    def paint(self):
-        self.is_draw = True
-        self.repaint()
+        for i, elem in enumerate(result):
+            for j, val in enumerate(elem):
+                self.tableWidget.setItem(i, j, QTableWidgetItem(str(val)))
 
-    def paintEvent(self, event):
-        if self.is_draw:
-            qp = QPainter()
-            qp.begin(self)
-            self.draw(qp)
-            qp.end()
-
-    def draw(self, qp):
-        num = random.randint(1, 150)
-        qp.setBrush(QColor(255, 255, 0))
-        qp.drawEllipse(QPointF(250, 150), num, num)
-
+        self.con.close()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    main_form = MainForm()
-    main_form.show()
+    ex = MyWidget()
+    ex.show()
     sys.exit(app.exec())
